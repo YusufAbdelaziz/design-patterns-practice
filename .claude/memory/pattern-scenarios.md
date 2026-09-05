@@ -107,3 +107,55 @@ Same shape elsewhere: payment flows, document publishing workflows, media player
 Modeled here as an `Order` context (`patterns/state/`) delegating to an abstract
 `State`, with concrete `PendingState` / `PaidState` / `ShippedState` /
 `DeliveredState` / `CancelledState`.
+
+---
+
+## Mediator (Behavioral)
+
+**Scenario: a group chat channel (Slack channel / WhatsApp group).**
+
+Members don't hold direct connections to each other; they post to the channel and
+it fans the message out to the other members. Joining, leaving, muting, or
+changing delivery rules is a change to the channel — the members are untouched.
+
+**Without the pattern:** every participant holds references to every other and
+calls them directly — an all-to-all mesh (up to *n²* links) with the interaction
+rules duplicated in each participant.
+
+**With the pattern:** each participant knows only the mediator; the mediator holds
+the participants and owns all the "who receives what" logic in one place. Add,
+remove, or re-route participants by changing the mediator alone.
+
+Same shape elsewhere: air-traffic control tower, UI dialog coordinating its
+widgets, message brokers.
+
+Set up **tests-first** (see [[pattern-package-intro]]): `patterns/mediator/` has a
+brief README and a failing `ChatRoomTest`; the user designs and builds the classes
+(a chat-room hub + participants) themselves.
+
+---
+
+## Command (Behavioral)
+
+**Scenario: a text editor's undo / redo.**
+
+Every edit (type, delete, paste) is captured as a command object pushed onto a
+history stack. Undo pops the last command and calls its `undo()`; redo re-runs it.
+Because each edit knows how to reverse itself, the editor gets unlimited undo
+without its core knowing any edit type — and the same objects power macros and
+replayable edit logs.
+
+**Without the pattern:** the invoker hard-codes every operation in a `switch`, and
+undo needs a *parallel* switch re-implementing every inverse by hand; adding an
+operation edits both, and do/undo logic drift apart.
+
+**With the pattern:** each request is a self-contained object with `execute()` and
+`undo()`; the invoker just calls those and keeps a history — never a switch. New
+operation = new class; queueing, logging, macros, and redo fall out for free.
+
+Same shape elsewhere: remote-control buttons, job/task queues, transactions,
+GUI actions (toolbar + menu + shortcut sharing one command).
+
+Set up **tests-first** (see [[pattern-package-intro]]): `patterns/command/` has a
+brief README and a failing `UndoRedoTest`; the user designs the command
+abstraction, the concrete commands, the receiver, and the undo/redo history.

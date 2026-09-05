@@ -5,15 +5,15 @@ A Java 21 + Maven repo for practicing the classic design patterns, one at a time
 ## How this works
 
 1. You name a pattern.
-2. I add an exercise for it: one `README.md` in the pattern's package (explanation, real-life use case, UML, the task, and rules), some starter code with `TODO`s, and a JUnit test suite that fails.
-3. You write the implementation yourself. I don't fill in the solution unless you ask.
+2. I set it up **tests-first**: a `README.md` brief in the pattern's package (explanation, the anti-pattern it replaces, a recall hook, real-life use case, and a *generic* pattern UML) plus a JUnit suite that fails to compile. There's **no starter code** — the point is for you to deduce the structure.
+3. You design and build every class yourself to make the tests pass. I don't hand you the solution unless you ask.
 4. Run the tests until they're green.
 
 ## Layout
 
 ```
-src/main/java/patterns/<pattern-name>/README.md   # the one comprehensive brief for the pattern
-src/main/java/patterns/<pattern-name>/            # starter code you edit
+src/main/java/patterns/<pattern-name>/README.md   # the brief for the pattern
+src/main/java/patterns/<pattern-name>/            # the classes you design and create
 src/test/java/patterns/<pattern-name>/            # tests that define "done"
 .claude/memory/pattern-scenarios.md               # the catalog of real-life scenarios
 ```
@@ -34,3 +34,5 @@ mvn -q compile                                  # just check it compiles
 | [Iterator](src/main/java/patterns/iterator/README.md) | Behavioral | ✅ Done |
 | [Chain of Responsibility](src/main/java/patterns/chainofresponsibility/README.md) | Behavioral | ✅ Done |
 | [State](src/main/java/patterns/state/README.md) | Behavioral | ✅ Done |
+| [Mediator](src/main/java/patterns/mediator/README.md) | Behavioral | 🔴 Not started |
+| [Command](src/main/java/patterns/command/README.md) | Behavioral | 🔴 Not started |
