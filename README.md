@@ -1,6 +1,6 @@
 # Design Patterns Practice
 
-A Java 21 + Maven repo for practicing the classic design patterns, one at a time.
+A Java 25 + Maven repo for practicing the classic design patterns, one at a time.
 
 ## How this works
 
